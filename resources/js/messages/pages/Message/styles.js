@@ -6,5 +6,10 @@ export const Container = styled.div`
     list-style: none;
     margin: 0;
     padding: 10px;
+    li {
+      span {
+        width: 100%;
+      }
+    }
   }
 `;

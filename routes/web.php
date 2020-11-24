@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/message', [MessageController::class, 'index'])->middleware(['auth']);
+Route::group(['middleware' => 'messages'], function () {
+  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+  Route::get('/message', [MessageController::class, 'index'])->middleware(['auth']);
+});

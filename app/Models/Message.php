@@ -19,4 +19,9 @@ class Message extends Model
   {
     return $this->belongsToMany("App\Models\User", "user_messages", "message_id", "user_id");
   }
+
+  public function messageUser()
+  {
+    return $this->hasMany("App\Models\UserMessage", "message_id", "id");
+  }
 }

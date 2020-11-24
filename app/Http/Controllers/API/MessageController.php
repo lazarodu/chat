@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DataResource;
 use App\Models\Message;
+use App\Models\UserMessage;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +19,9 @@ class MessageController extends Controller
    */
   public function index()
   {
-    $messages = Message::with(['userEnvio'])->get();
+    $messages = Message::whereDoesntHave('messageUser', function (Builder $query) {
+      $query->where('user_id', '=', Auth::user()->id);
+    })->with(['userEnvio'])->get();
     return new DataResource($messages);
   }
 
@@ -37,6 +41,24 @@ class MessageController extends Controller
       "user_id" => Auth::user()->id
     ]);
     $message->save();
+    return new DataResource($message);
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, $id)
+  {
+    $message = Message::findOrFail($id);
+    $user = new UserMessage([
+      "user_id" => Auth::user()->id,
+      "message_id" => $message->id
+    ]);
+    $user->save();
     return new DataResource($message);
   }
 }

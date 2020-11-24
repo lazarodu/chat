@@ -55,6 +55,22 @@
             </li>
             @endif
             @else
+
+            <!-- <div class="dropdown">
+              <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-light">{{count($message)}}</span>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @foreach($message as $msg)
+                <a class="dropdown-item" href="#">
+                  {{$msg->userEnvio->name}}: {{$msg->message}}
+                </a>
+                @endforeach
+              </div>
+            </div> -->
+
+            <div id="messageDropdown"></div>
             <li class="nav-item dropdown">
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }}

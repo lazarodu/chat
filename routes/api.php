@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::group(['middleware' => 'auth:api'], function () {
-  Route::apiResource('messages', MessageController::class)->only(['index', 'store']);
+  Route::apiResource('messages', MessageController::class)->only(['index', 'store', 'update']);
   Route::apiResource('usermessages', UserMessageController::class)->only(['index', 'store']);
   Route::get('users', [UserController::class, 'index']);
 });
